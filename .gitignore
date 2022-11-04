@@ -1,2 +1,5 @@
 #virtual environment
 xtinamarie_venv
+
+#secrets
+.env
