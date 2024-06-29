@@ -70,41 +70,24 @@ function createListItem() {
                 <div class="about">
                     <ul class="list">
                     <br>
-                        Hi! My name is Kristina Marie, but you may call me Kristina or Tina. &#127872;<br><br> 
-                        I was born and raised in New York City. My favorite colors are red and lavender. I am happily married
-                        to my amazing husband since September 5, 2020. We have 5 cats whose names are Artemis, Zeus, Athena, 
-                        Hera, and Luna. If you'd like to see pictures of them, just type the word 'pics' and you'll see how
-                        cute they are! My favorite season of the year is fall &#127810;.<br><br>
-                        Prior to my college years, I attended Fiorello H. LaGuardia High School of Music, Arts, and Performing Arts
-                        as a vocal major. In the beginning, I thought I wanted to pursue a career in singing. However,
-                        that changed once I started my junior year and realized I wanted to pursue a career in STEM.
-                        Growing up in a Filipino household and being surrounded by many nurses in my family, I thought medicine
-                        was the right career path for me. So then, I chose to a pursue a career in becoming an anesthesiologist. 
-                        I attended Molloy College for two years and majored in Biology (Pre-Medicine) with a double minor in 
-                        Chemistry and Mathematics. I soon realized that medicine was not meant to be my career path.<br><br>
-                        For a short amount of time, I struggled to figure out what I wanted to do in life, but I remembered 
-                        being in a STEM program that City College CUNY had hosted for high school students. Through 
-                        that program, my team and I built/programmed a prototype robot that was designed to save lives 
-                        for the US Army to use. Because of that program, I was inspired to change my major to Computer Science
-                        and Information Security and transferred to John Jay College of Criminal Justice. Since then, I have 
-                        not looked back in the decision I made.<br><br>
+                        Hi! I'm Kristina, but you may also call me Tina. &#127872;<br><br> 
+                        I was born and raised in New York City. &#128509;<br><br>
+                        My favorite season of the year is fall &#127810;.<br><br>
                         I have a passion for learning languages and cultures and spend my free time by doing so. I am currently 
-                        teaching myself French (primarily) and frequently learning Chinese and Japanese. I hope to learn 
-                        Korean, Italian, and Spanish in the future while also having the opportunity to travel to their
+                        teaching myself French (primarily) and occassionally learning Arabic. I hope to learn 
+                        more languages in the future while also having the opportunity to travel to their
                         respective countries as well. &#127758;<br><br>
-                        Another way I like to spend my free time is by learning more programming languages, attempting to do
-                        some CTFs through TryHackMe or HackTheBox, reading some books for leisure, singing my heart out to
-                        Ariana Grande/Whitney Houston/Christina Aguilera/Celine Dion songs, or watching one of the following
-                        TV shows:<br><br>
-                        <li> </li>
-                        <li>Grey's Anatomy</li>
-                        <li>Mr. Robot</li>
+                        I like to spend my free time is by attempting to do some CTFs through TryHackMe or HackTheBox, 
+                        reading some books for leisure, singing my heart out to Ariana Grande's songs, playing Chess, or 
+                        watching a TV series/a movie. Here are some of my favorite shows I've watched so far:<br><br>
                         <li>HIMYM</li>
-                        <li>Anime shows</li><br><br>
-                        After initially watching Mr. Robot, I knew I definitely wanted to pursue a career in Information
-                        Security. Now, I work as a Software Developer. My current goal is to gain more professional experiences
-                        as a programmer as work on getting certified in AWS Cloud Practitioner, Network+, Security+, 
-                        and CISSP so that I can achieve my dream role as a Security Engineer.
+                        <li>Mr. Robot</li>
+                        <li>Demon Slayer</li>
+                        <li>Bridgerton</li><br><br>
+                        I was inspired to pursue a career in Information Security after watching Mr. Robot. 
+                        Now, I work in my dream role as a Cloud & DevOps Security Engineer. 
+                        My current goal is to gain more professional experiences as a programmer as work on getting certified in 
+                        AWS Solutions Architect, AWS Security Specialty, and CISSP while I strive to be a Staff Engineer.
                         <br><br>
                     </ul>
                 </div>
@@ -176,51 +159,6 @@ function createListItem() {
                 <br>
                 Resume update coming soon! &#128196;&#128526;
                     <br><br>
-                </div>
-            `
-
-            // Add results to output box
-            outputList.appendChild(results);
-            break;
-        
-        case "pics":
-            addPreviousCmd();
-
-            results.innerHTML = `
-                <div class="pics">
-                <br>
-                    <ul class="list">
-                    Hi there! So you want to see some pictures... &#128527;<br>
-                    Here is a picture of me and another picture of me and my husband:<br>
-                    <img src="static/img/me.jpeg" alt="A picture of me."><br> 
-                    <img src="static/img/me_and_jp.jpeg" alt="A picture of me and my husband, JP."><br><br>
-                    Now, here are the pics that you're REALLY here for &#128514;<br><br>
-                    This is a picture of Artemis. He's my first baby. He was born on April 15, 2020.
-                    <img src="static/img/arty.jpeg" alt="Artemis">
-                    The story began when one of my close friends (whom I used to work with at Microsoft) had some outdoor 
-                    cats constantly visiting his home. He wasn't allowed to take the cats into his home, but he did his best
-                    in taking care of them however he could. He provided them with food and a place outside to sleep and take
-                    shelter. He didn't realize that one of them was pregnant, until he heard tiny meows. Here is a picture of
-                    Arty when he was a baby with his siblings.<br>
-                    <img src="static/img/babyarty.jpeg" alt="Baby Arty and his siblings">
-                    Don't worry. His siblings are safe. My former coworkers, who also worked at Microsoft, took in Artemis's
-                    siblings and we still keep in touch. &#128519;
-                    <br><br>
-                    The next picture is a picture of Zeus (white/tan) located at the top right of the picture.
-                    Although Zeus is younger than Artemis (born on July 11, 2020), Artemis's grandmother 
-                    gave birth to Zeus. I guess that makes Zeus his uncle? &#128517; <br>
-                    The two kittens next to Zeus are Artemis's daughters: Athena (grey/white/tan) and Hera (black/brown). 
-                    <br>They were both born on May 11, 2021.<br>
-                    <img src="static/img/zah.jpeg" alt="Zeus, Athena, and Hera">
-                    Here is a picture of Luna &#8212; another one of Artemis's daughters. (Peep Arty in the back &#128517;)<br>
-                    <img src="static/img/luna.jpeg" alt="Luna">
-                    This last picture is a picture of all the kittens along with their mother, Mingming, who is currently living
-                    with my best friend. The other two kittens, who I didn't mention, are named Simba (all tan) and Seraphine (all grey).
-                    They also currently are safe and living with my best friend and Mingming.
-                    <br>
-                    <img src="static/img/kittens.jpeg" alt="Mingming and the kittens">
-                    </ul>
-                    <br>
                 </div>
             `
 
