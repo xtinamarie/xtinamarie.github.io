@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>secretblog ~ Kristina Marie</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+
+    <style>
+        /* Stardew Valley night sky theme — scoped overrides for this page only */
+        body {
+            background-color: #0a0818;
+            background-image: url('../static/img/stardew-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .terminal {
+            background-color: rgba(8, 7, 20, 0.78);
+            color: #f0e8d0;
+        }
+        .terminal-topbar {
+            background: linear-gradient(0deg, #12122e, #1c1c48);
+        }
+        .terminal-title {
+            color: #f0e8d0;
+        }
+        label {
+            color: #f0c060;
+        }
+        .terminal p::before,
+        .output-line::before,
+        .pre::before {
+            color: #f0c060;
+        }
+        a:link    { color: #7ec8b8; font-weight: bold; text-decoration: none; }
+        a:visited { color: #5aaa98; font-weight: bold; text-decoration: none; }
+        a:hover   { color: #f0c060; text-decoration: underline; }
+    </style>
+</head>
+
+<body>
+<div class="terminal-container">
+    <div class="terminal-topbar">
+        <div class="mock-buttons">
+            <div class="circle red"></div>
+            <div class="circle yellow"></div>
+            <div class="circle green"></div>
+        </div>
+        <p class="terminal-title">~/mysecretblog</p>
+    </div>
+    <div class="terminal" id="blog-terminal">
+        <br>
+        you found it. <img src="../static/img/pepe-giggle.gif" alt="pepe giggle" class="contact-gif"><br><br>
+        this page is under construction. check back soon.<br><br>
+        type '<strong>cd ..</strong>' to go back.<br><br>
+        <div id="blog-output"></div>
+        <form id="form" autocomplete="off">
+            <label for="blog-input">guest@tina ~/mysecretblog $</label>
+            <input type="text" class="input-field" id="blog-input" name="blog-input" autocomplete="off">
+        </form>
+    </div>
+</div>
+<script>
+    const blogForm = document.getElementById('form');
+    const blogInput = document.getElementById('blog-input');
+    const blogOutput = document.getElementById('blog-output');
+
+    blogInput.focus();
+
+    document.getElementById('blog-terminal').addEventListener('click', () => blogInput.focus());
+
+    blogForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const cmd = blogInput.value.trim();
+        if (cmd.toLowerCase() === 'cd ..' || cmd.toLowerCase() === 'cd ~') {
+            window.location.href = '../index.html';
+        } else if (cmd !== '') {
+            blogOutput.innerHTML += `
+                <div>
+                    <span style="color:#f0c060">guest@tina ~/mysecretblog $</span> ${cmd}<br>
+                    zsh: command not found: ${cmd}<br><br>
+                </div>`;
+        }
+        blogInput.value = '';
+    });
+</script>
+</body>
+</html>

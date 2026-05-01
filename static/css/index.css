@@ -13,11 +13,22 @@ html {
 
 body {
     margin: 0;
+    padding: 24px 16px;
     display: flex;
     min-height: 100vh;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(#613855, #9475BC, #AAB0D9, #CFDDEB, white, white);
+    background: linear-gradient(160deg, #FFF1F9 0%, #FAF0FF 100%);
+}
+
+#matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
 ul,li,h1,h2,h3,h4,h5,p {
@@ -32,23 +43,21 @@ li {
 .terminal-container {
     display: flex;
     flex-direction: column;
-    min-width: 320px;
-    width: 100%;
-    max-width: 600px;
+    width: 92%;
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
 }
 
 .terminal-topbar {
     position: relative;
     border-radius: 7px 7px 0 0;
-    position: relative;
-    min-width: 320px;
     width: 100%;
-    max-width: 600px;
     height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(0deg, #d8d8d8, #ececec);
+    background: linear-gradient(0deg, #F3D0FF, #FFD6EE);
 }
 
 .mock-buttons {
@@ -87,19 +96,18 @@ li {
     font-family: "PT Sans", sans-serif;
     margin: 0 auto;
     font-size: 1rem;
-    color: #4c3436;
+    color: #7E22CE;
 }
 
 .terminal {
     font-size: 1rem;
     line-height: 1.2rem;
-    min-width: 320px;
     width: 100%;
-    max-width: 600px;
-    height: 500px;
+    min-height: 55vh;
+    max-height: 75vh;
     overflow-y: auto;
-    background-color: #0f3642;
-    opacity: 0.8;
+    overflow-x: hidden;
+    background-color: rgba(29, 11, 51, 0.85);
     color: #ffffff;
     padding: 10px;
     border-radius: 0 0 7px 7px;
@@ -107,43 +115,80 @@ li {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 0 30px 1px rgba(0, 0, 0, 0.2);
 }
 
-@media only screen and (max-width: 800px) {
-    html {
-        font-size: 12px;
-    }
-    .terminal {
-        max-width: 75%;
-        margin-left: auto;
-        margin-right: auto;
-        max-height: 550px;
-    }
-    
-    .terminal-topbar {
-        max-width: 75%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 6px 0;
+}
+
+.logo-heart {
+    font-size: 2rem;
+    color: #F472B6;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    margin: 0;
+    line-height: 1.2rem;
+    font-family: "PT Mono", monospace;
+    color: #F472B6;
+}
+
+/* Small phones: iPhone SE, Galaxy S series (≤480px) */
+@media (max-width: 480px) {
+    html { font-size: 10px; }
+    .terminal-container { width: 96%; }
+    .terminal { min-height: 62vh; max-height: 80vh; }
+    .logo-text { font-size: 0.9rem; line-height: 1.1rem; }
+}
+
+/* Large phones + portrait tablets (481px–767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .terminal { min-height: 58vh; max-height: 78vh; }
+}
+
+/* Tablets: iPad mini, iPad, iPad Air (768px–1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .terminal-container { width: 80%; }
+    .terminal { min-height: 500px; max-height: 640px; }
+}
+
+/* Desktop and large tablets: iPad Pro, laptops, monitors (≥1024px) */
+@media (min-width: 1024px) {
+    .terminal-container { width: 100%; }
+    .terminal { min-height: 500px; max-height: 600px; }
 }
 
 .terminal p {
     margin: 0;
 }
 .terminal p::before {
-    color: #36F0A7;
+    color: #E879F9;
     content: "guest@tina ~/portfolio $ ";
 }
 
 .output-line::before {
-    color: #36F0A7;
+    color: #E879F9;
     content: "guest@tina ~/portfolio $ ";
 }
 
 a:link {
-    color: #ffffff;
+    color: #C084FC;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 a:visited {
-    color: #ffffff;
+    color: #A78BFA;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #E879F9;
+    text-decoration: underline;
 }
 
 .output {
@@ -164,12 +209,12 @@ a:visited {
 
 
 label {
-    color: #36F0A7;
+    color: #E879F9;
     margin-right: 8px;
 }
 
 .pre::before {
-    color: #36F0A7;
+    color: #E879F9;
     content: "guest@tina ~/portfolio $";
 }
 
@@ -202,8 +247,7 @@ h4 {
 }
 
 .cmd-results {
-    min-width: 300px;
-    max-width: 1100px;
+    max-width: 100%;
 }
 
 .description-item, .description {
@@ -224,4 +268,11 @@ h4 {
 img {
     max-width: 45%;
     height: auto;
+}
+
+.contact-gif {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 6px 0;
 }

@@ -28,33 +28,23 @@ function createListItem() {
 
             results.innerHTML = `
             <div class="faq">
-                <br>
-                    Here are some of my most recently asked questions about my page:<br><br>
-                    <strong>Why did I create a terminal style portfolio?</strong><br>
-                    <font size="-1">I chose to create a terminal style portfolio because, as a developer and aspiring penetration tester, the terminal is
+                    Here are some questions I get asked about my page:<br><br>
+                    <strong><---Why did I create a terminal style portfolio?---></strong><br>
+                    <span style="font-size:0.85em">I chose to create a terminal style portfolio because, as a developer and security engineer, the terminal is
                     something that I and many other developers use in our day-to-day job functions. I created this style portfolio with
                     the intention of allowing my non-tech savvy audience to get a simple feel of what it is like to use one of our daily
                     tools. I provided simple, easy-to-use commands so that everyone can understand how to interact with my website.
                     <br>
-                    Please feel free to provide any feedback via my email, which you can find when you type 'contact' in the input field.</font>
+                    For any feedback, feel free to reach out via <a href="https://www.linkedin.com/in/kristina-marie/" rel="noopener noreferrer" target="_blank">LinkedIn</a>.</span>
                     <br><br>
-                    <strong>Did you know that your website is vulnerable to XSS?</strong><br>
-                    <font size="-1">Yes, I know. I don't care enough to fix it because my website doesn't handle any sort of PII or any other important
-                    information to be stolen other than my personal pictures in here and my resume. Maybe my email if you want to include
-                    that too, but I really don't care. If my portfolio does handle such things, I would've taken care of it already and 
-                    you wouldn't be messaging me about it. Please stop bugging me in my DMs about this.</font>
+                    <strong><---Did you know that your website is vulnerable to XSS?---></strong><br>
+                    <span style="font-size:0.85em">Yes, I'm a security engineer...I'm not oblivious. &#128514; I ran the actual risk assessment: static site, no backend, no auth, no stored user data, WAF + CSP sitting in front of it. The blast radius of XSS on a public read-only page with no sensitive data rounds to zero. I made a conscious call. Please stop DMing me about it; this answer is why that section exists.</span>
                     <br><br>
-                    <strong>Did you create your portfolio all by yourself?</strong><br>
-                    <font size="-1">No. I did most of the HTML and CSS, while my friend <a href="https://twitter.com/kvncnls" rel="noopener noreferrer" target="_blank">Kevin</a>
-                    helped me write the JavaScript to make my website act like a terminal. After creating the skeleton of the JavaScript, I modified his code
-                    to include the output results I want written (like what you're currently reading) when people type certain words and then a few other things 
-                    as well. If you want to see his work, you can click the link in his bio to see his website, his social medias, and other stuff. I've placed 
-                    a link to his Twitter in here so you can go and click on his name to check out his twitter feed and follow him. Thank you Kevin!! &#128519;</font>
+                    <strong><---Did you create your portfolio all by yourself?---></strong><br>
+                    <span style="font-size:0.85em">Not entirely and I want to be upfront about that. My friend Kevin built the JavaScript that makes this site behave like a terminal. He did the heavy lifting on that foundation and I'm grateful for it. Over the years I've updated the styling and content, but the core terminal logic is his work. <a href="https://www.kevincanlas.com/" rel="noopener noreferrer" target="_blank">Go check out his site!</a> He's very talented. Thank you Kevin! &#128519;</span>
                     <br><br>
-                    <strong>How did you create your website? I want to do the same thing for mine.</strong><br>
-                    <font size="-1">HTML5, CSS, JavaScript, Google Domains, GitHub, and a lot of heavy research. W3Schools and stackoverflow are both some of the resources I used
-                    the most. If you're going to ask me to give you a snippet of my code for "testing purposes" so that my site isn't vulnerable to your
-                    "hacking", the answer is &#128150;no&#128150;</font>
+                    <strong><---Can you send me your code? I want to use it for my own site (and definitely not for "hacking" purposes).---></strong><br>
+                    <span style="font-size:0.85em">Uhm...my repo is public. Like...it's right there..........................RTFM much??? <img src="static/img/maddy-side-eye.gif" alt="maddy side eye" class="contact-gif"></span>
                     <br><br>
             </div>
             `
@@ -69,26 +59,10 @@ function createListItem() {
             results.innerHTML = `
                 <div class="about">
                     <ul class="list">
-                    <br>
-                        Hi! I'm Kristina, but you may also call me Tina. &#127872;<br><br> 
-                        I was born and raised in New York City. &#128509;<br><br>
-                        My favorite season of the year is fall &#127810;.<br><br>
-                        I have a passion for learning languages and cultures and spend my free time by doing so. I am currently 
-                        teaching myself French (primarily) and occassionally learning Arabic. I hope to learn 
-                        more languages in the future while also having the opportunity to travel to their
-                        respective countries as well. &#127758;<br><br>
-                        I like to spend my free time is by attempting to do some CTFs through TryHackMe or HackTheBox, 
-                        reading some books for leisure, singing my heart out to Ariana Grande's songs, playing Chess, or 
-                        watching a TV series/a movie. Here are some of my favorite shows I've watched so far:<br><br>
-                        <li>HIMYM</li>
-                        <li>Mr. Robot</li>
-                        <li>Demon Slayer</li>
-                        <li>Bridgerton</li><br><br>
-                        I was inspired to pursue a career in Information Security after watching Mr. Robot. 
-                        Now, I work in my dream role as a Cloud & DevOps Security Engineer. 
-                        My current goal is to gain more professional experiences as a programmer as work on getting certified in 
-                        AWS Solutions Architect, AWS Security Specialty, and CISSP while I strive to be a Staff Engineer.
-                        <br><br>
+                    Hi, I'm Kristina! You can also call me Tina (that's what my friends and coworkers call me).<br><br>
+                    I'm a Cloud & DevOps Security Engineer by day, French student and amateur bookworm by night.<br><br>
+                    I was inspired to get into Cyber Security because of a TV show and I've never looked back. I'm the kind of engineer who asks too many questions before writing a single line of code, because I'd rather understand the full picture than patch the wrong problem.<br><br>
+                    I care deeply about the work I do and the people I do it with. If something here resonates with you, I'd love to connect.<br>
                     </ul>
                 </div>
             `
@@ -103,14 +77,13 @@ function createListItem() {
             results.innerHTML = `
                 <div class="socials-list">
                     <ul class="list">
-                    Here are some links to my social media accounts. You're welcome to follow me and get to know me on a
-                    personal level! &#128519;<br><br>
+                    <br>
+                    Here are some links to my social media accounts. You're welcome to follow me and get to know me! &#128519;<br><br>
                         <li> </li>
-                        <li><a href="https://www.linkedin.com/in/kristinamarielag/" rel="noopener noreferrer" target="_blank">linkedin</a> -> <font size=-7>&nbsp;*please make sure to leave a message stating why you want to connect*</font></li>
+                        <li><a href="https://www.linkedin.com/in/kristina-marie/" rel="noopener noreferrer" target="_blank">linkedin</a></li>
                         <li><a href="https://github.com/xtinamarie" rel="noopener noreferrer" target="_blank">github</a></li>
                         <li><a href="https://twitter.com/tinyxtina_" rel="noopener noreferrer" target="_blank">twitter</a></li>
-                        <li><a href="https://www.tiktok.com/@xtina3.0" rel="noopener noreferrer" target="_blank">tiktok</a></li>
-                        <li><a href="https://www.youtube.com/@tinyxtina_" rel="noopener noreferrer" target="_blank">youtube</a></li><br>
+                        <li><a href="https://www.tiktok.com/@xtina3.0" rel="noopener noreferrer" target="_blank">tiktok</a></li><br>
                     </ul>
                 </div>
             `
@@ -125,8 +98,9 @@ function createListItem() {
             results.innerHTML = `
                 <div class="contact">
                 <br>
-                    Please don't hesitate to reach out to me via social media if you wanna chat! Just type 'socials' and it will lead you to my social media platforms. <br><br>
-                    For business inquiries, please contact me via <a href="https://www.linkedin.com/in/kristinamarielag/" rel="noopener noreferrer" target="_blank">LinkedIn</a> and leave a message or you may request for my email. &#128231; <br><br>
+                    <img src="static/img/and-i-oop.gif" alt="and i oop" class="contact-gif"><br>
+                    Nice try...my personal info stays personal. &#128514;<br><br>
+                    For business inquiries, please contact me via <a href="https://www.linkedin.com/in/kristina-marie/" rel="noopener noreferrer" target="_blank">LinkedIn</a> and leave a message.<br><br>
                 </div>
             `
 
@@ -140,9 +114,7 @@ function createListItem() {
             results.innerHTML = `
                 <div class="writeup">
                     <ul class="list">
-                    <br>
                         No writeups here, yet. Please check back later! &#128522;
-                    <br><br>
                     </ul>
                 </div>
             `
@@ -156,9 +128,7 @@ function createListItem() {
 
             results.innerHTML = `
                 <div class="resume">
-                <br>
                 Resume update coming soon! &#128196;&#128526;
-                    <br><br>
                 </div>
             `
 
@@ -171,9 +141,8 @@ function createListItem() {
 
             results.innerHTML = `
                 <div class="hack">
-                    <br>
-                    So, you're trying to hack me, eh? &#128527; <br>
-                    Can you find my not so secret blog page?<br><br>
+                    Bold of you. &#128527;<br>
+                    Maybe poke around a little more...
                 </div>
             `
 

@@ -1,5 +1,13 @@
-#venv
-djangoenv
-
-#secrets
+# secrets
 .env
+
+# Terraform state (contains sensitive resource details)
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfstate.*
+*.tfvars
+terraform/outputs.tf
+
+# OS
+.DS_Store

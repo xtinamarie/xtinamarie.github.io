@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-{% load static %}
 <html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kristina Marie's Portfolio</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'img/nezuko.jpeg' %}">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="static/css/index.css">
+
 </head>
 
 <body>
+<canvas id="matrix-bg"></canvas>
 <div class="terminal-container">
     <div class="terminal-topbar">
         <div class="mock-buttons">
@@ -18,16 +19,27 @@
             <div class="circle yellow"></div>
             <div class="circle green"></div>
         </div>
-        <p class="terminal-title">~/portfolio</p>
+        <p class="terminal-title">~/myportfolio</p>
     </div>
-    <div class="terminal" data-content="~/portfolio">
+    <div class="terminal" data-content="~/myportfolio">
         <script>
             document.write("Last Login: " + new Date());
         </script>
         <div id="t-content">
             <br>
-            <h2>Tiny Tina &hearts;</h2><br>
-            Hello Friend &#128516; Welcome to my page.<br>
+<div class="logo-container">
+    <span class="logo-heart">&#9829;</span><pre class="logo-text">===========================================
+   _   _               _   _
+  | |_(_)_ __  _   _  | |_(_)_ __   __ _
+  | __| | '_ \| | | | | __| | '_ \ / _` |
+  | |_| | | | | |_| | | |_| | | | | (_| |
+   \__|_|_| |_|\__, |  \__|_|_| |_|\__,_|
+                __/ |
+               |___/
+===========================================
+</pre><span class="logo-heart">&#9829;</span>
+</div>
+            Hello, Friend! Welcome to my page.<br>
             Please type one of the words from the following list to see more.<br>
             <br>
             ['about', 'socials', 'contact', 'writeup', 'resume', 'hack', 'faq', 'clear']<br><br>
@@ -36,12 +48,13 @@
             <ul class="output-list"></ul>
         </div>
         <form id="form" autocomplete="off">
-            <label for="input-field">guest@tina ~/portfolio $</label>
+            <label for="input-field">guest@tina ~/myportfolio $</label>
             <input type="text" class="input-field" name="input-field" autocomplete="off">
         </form>
     </div>
 </div>
-<!-- Looking for my not so secret blog pag? Try secretblog/ -->
-<script src="{% static 'js/index.js' %}"></script>
+<!-- Looking for my not so secret blog page? Try secretblog/ -->
+<script src="static/js/index.js"></script>
+<script src="static/js/matrix.js"></script>
 </body>
 </html>
