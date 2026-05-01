@@ -1,6 +1,10 @@
 # <-------------------- S3 Bucket -------------------->
 resource "aws_s3_bucket" "tinasportfolio_bucket" {
   bucket = var.s3_bucket_name
+
+  tags = {
+    Name = "tinasportfolio"
+  }
 }
 
 resource "aws_s3_bucket_versioning" "tinasportfolio_bucket_versioning" {
@@ -61,6 +65,10 @@ resource "aws_s3_bucket" "tinasportfolio_logs_bucket" {
   #checkov:skip=CKV_AWS_144:Access logs bucket - replicating log data cross-region is not required
   #checkov:skip=CKV_AWS_18:This bucket is the access log destination - logging it would create a circular reference
   bucket = "${var.s3_bucket_name}-logs"
+
+  tags = {
+    Name = "tinasportfolio"
+  }
 }
 
 resource "aws_s3_bucket_ownership_controls" "tinasportfolio_logs_bucket_ownership" {
@@ -169,6 +177,10 @@ resource "aws_s3_bucket" "tinasportfolio_failover_bucket" {
   #checkov:skip=CKV_AWS_18:S3 server access logging does not support cross-region delivery; cannot log from us-west-2 to the us-east-1 logs bucket
   provider = aws.secondary
   bucket   = "${var.s3_bucket_name}-failover"
+
+  tags = {
+    Name = "tinasportfolio"
+  }
 }
 
 resource "aws_s3_bucket_ownership_controls" "tinasportfolio_failover_bucket_ownership" {
@@ -308,6 +320,10 @@ resource "aws_kms_key" "s3_primary" {
   description             = "KMS key for primary S3 bucket encryption"
   deletion_window_in_days = 7
   enable_key_rotation     = true
+
+  tags = {
+    Name = "tinasportfolio"
+  }
 }
 
 resource "aws_kms_key_policy" "s3_primary" {
@@ -369,6 +385,10 @@ resource "aws_kms_key" "s3_secondary" {
   description             = "KMS key for failover S3 bucket encryption"
   deletion_window_in_days = 7
   enable_key_rotation     = true
+
+  tags = {
+    Name = "tinasportfolio"
+  }
 }
 
 resource "aws_kms_key_policy" "s3_secondary" {
@@ -395,6 +415,10 @@ resource "aws_iam_role" "replication_role" {
       Principal = { Service = "s3.amazonaws.com" }
     }]
   })
+
+  tags = {
+    Name = "tinasportfolio"
+  }
 }
 
 data "aws_iam_policy_document" "replication_policy" {
@@ -479,6 +503,10 @@ resource "aws_wafv2_web_acl" "tinasportfolio_waf" {
   name        = "${var.project_name}-waf"
   description = "WAF rules for portfolio CloudFront distribution"
   scope       = "CLOUDFRONT"
+
+  tags = {
+    Name = "tinasportfolio"
+  }
 
   default_action {
     allow {}
@@ -610,6 +638,10 @@ resource "aws_kms_key" "waf_logs" {
   description             = "KMS key for WAF CloudWatch Logs encryption"
   deletion_window_in_days = 7
   enable_key_rotation     = true
+
+  tags = {
+    Name = "tinasportfolio"
+  }
 }
 
 resource "aws_kms_key_policy" "waf_logs" {
@@ -632,6 +664,10 @@ resource "aws_cloudwatch_log_group" "waf_logs" {
   kms_key_id        = aws_kms_key.waf_logs.arn
 
   depends_on = [aws_kms_key_policy.waf_logs]
+
+  tags = {
+    Name = "tinasportfolio"
+  }
 }
 
 resource "aws_cloudwatch_log_resource_policy" "waf_logs_policy" {
@@ -664,6 +700,10 @@ resource "aws_acm_certificate" "tinasportfolio_cert" {
 
   lifecycle {
     create_before_destroy = true
+  }
+
+  tags = {
+    Name = "tinasportfolio"
   }
 }
 
@@ -728,6 +768,10 @@ resource "aws_cloudfront_response_headers_policy" "security_headers" {
 
 # <-------------------- CloudFront -------------------->
 resource "aws_cloudfront_distribution" "tinasportfolio_distribution" {
+  tags = {
+    Name = "tinasportfolio"
+  }
+
   origin {
     domain_name              = aws_s3_bucket.tinasportfolio_bucket.bucket_regional_domain_name
     origin_id                = "S3-${var.project_name}"
