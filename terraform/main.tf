@@ -56,10 +56,10 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "tinasportfolio_bu
   depends_on = [aws_kms_key_policy.s3_primary]
 }
 
+#tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "tinasportfolio_logs_bucket" {
   #checkov:skip=CKV_AWS_144:Access logs bucket - replicating log data cross-region is not required
   #checkov:skip=CKV_AWS_18:This bucket is the access log destination - logging it would create a circular reference
-  #tfsec:ignore:aws-s3-enable-bucket-logging:This bucket is the access log destination - logging it would create a circular reference
   bucket = "${var.s3_bucket_name}-logs"
 }
 
@@ -80,8 +80,8 @@ resource "aws_s3_bucket_public_access_block" "tinasportfolio_logs_bucket_access_
   restrict_public_buckets = true
 }
 
+#tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket_server_side_encryption_configuration" "tinasportfolio_logs_bucket_encryption" {
-  #tfsec:ignore:aws-s3-encryption-customer-key:Logs bucket uses AWS-managed KMS key - a dedicated CMK for access logs is not warranted for a personal portfolio site
   bucket = aws_s3_bucket.tinasportfolio_logs_bucket.id
 
   rule {
@@ -163,10 +163,10 @@ resource "aws_s3_bucket_policy" "tinasportfolio_bucket_policy" {
 }
 
 # <-------------------- S3 Failover Bucket (us-west-2) -------------------->
+#tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "tinasportfolio_failover_bucket" {
   #checkov:skip=CKV_AWS_144:This bucket is the replication destination - replicating it would be circular
   #checkov:skip=CKV_AWS_18:S3 server access logging does not support cross-region delivery; cannot log from us-west-2 to the us-east-1 logs bucket
-  #tfsec:ignore:aws-s3-enable-bucket-logging:S3 server access logging does not support cross-region delivery; cannot log from us-west-2 to the us-east-1 logs bucket
   provider = aws.secondary
   bucket   = "${var.s3_bucket_name}-failover"
 }
