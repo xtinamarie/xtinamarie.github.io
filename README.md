@@ -162,6 +162,12 @@ Once secrets are set, every push to `master` automatically syncs files to S3 and
 - [Gitleaks](https://github.com/gitleaks/gitleaks) — scans for accidentally committed secrets
 - [tfsec](https://github.com/aquasecurity/tfsec) — scans Terraform for security misconfigurations
 
+## Security Scanning
+
+The Terraform infrastructure in this project was validated locally using [Checkov](https://www.checkov.io/) to ensure resources are correctly configured and free of common security misconfigurations. All flagged checks were either remediated or explicitly suppressed with documented reasons where architectural constraints made full compliance impractical.
+
+My custom Checkov policies are in development at [xtinamarie/my-checkov-policies](https://github.com/xtinamarie/my-checkov-policies) and will eventually be run alongside the built-in policy set.
+
 ## Infrastructure Overview
 
 - **S3** — private primary bucket (us-east-1) with versioning, KMS customer-managed encryption, lifecycle policies (noncurrent versions expire after 30 days), EventBridge notifications, and all public access blocked. Only accessible via CloudFront using Origin Access Control (OAC).
