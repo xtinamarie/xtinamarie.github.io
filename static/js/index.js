@@ -22,6 +22,50 @@ function createListItem() {
     let results = document.createElement('div');
     results.classList.add("cmd-results");
 
+    const openImgMatch = inputField.value.toLowerCase().match(/^open (artemis|zeus|athena)\.jpg$/);
+    if (openImgMatch) {
+        const name = openImgMatch[1];
+        const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+        addPreviousCmd();
+        results.innerHTML = `
+            <div class="cat-reveal">
+                <img src="static/img/cats/${name}.jpg" alt="${displayName}" class="cat-img"><br>
+                Congrats! You've unlocked an Easter Egg. This is my cat, ${displayName}. &#128049;
+            </div>
+        `;
+        outputList.appendChild(results);
+        inputField.value = '';
+        return;
+    }
+
+    const secretFileCmd = inputField.value.toLowerCase().match(/^(cat|less|more|nano|vi|vim)\s+\.definitely_dont_read_this$/);
+    if (secretFileCmd) {
+        addPreviousCmd();
+        const encryptedContent = `-----BEGIN ENCRYPTED MESSAGE-----\ncGF0aCA9IC9zZWNyZXRibG9n\n-----END ENCRYPTED MESSAGE-----`;
+        if (secretFileCmd[1] === 'nano' || secretFileCmd[1] === 'vi' || secretFileCmd[1] === 'vim') {
+            results.innerHTML = `<div class="ls"><pre>  GNU nano 6.2            .definitely_dont_read_this\n\n${encryptedContent}\n\n\n^G Help      ^X Exit      ^O Write Out ^R Read File</pre></div>`;
+        } else {
+            results.innerHTML = `<div class="ls"><pre>${encryptedContent}</pre></div>`;
+        }
+        outputList.appendChild(results);
+        inputField.value = '';
+        return;
+    }
+
+    const bangMatch = inputField.value.match(/^!(\d+)$/);
+    if (bangMatch) {
+        const index = parseInt(bangMatch[1]) - 1;
+        if (index >= 0 && index < historyList.length - 1) {
+            inputField.value = historyList[index];
+        } else {
+            addPreviousCmd();
+            results.innerHTML = `<br>zsh: event not found: ${bangMatch[1]}<br><br>`;
+            outputList.appendChild(results);
+            inputField.value = '';
+            return;
+        }
+    }
+
     switch (inputField.value.toLowerCase()) {
         case "faq":
             addPreviousCmd();
@@ -150,10 +194,79 @@ function createListItem() {
             outputList.appendChild(results);
             break;
         
+        case "cd ..":
+            addPreviousCmd();
+
+            results.innerHTML = `
+                <div class="cd">
+                    This isn't a real terminal...where are you trying to go? The abyss? &#128580;
+                </div>
+            `;
+
+            outputList.appendChild(results);
+            break;
+
+        case "sudo":
+            addPreviousCmd();
+
+            results.innerHTML = `
+                <div class="sudo">
+                    <img src="static/img/u-thought.gif" alt="u thought" class="contact-gif"><br>
+                    Who do you think you are? A hacker or something? &#128514;
+                </div>
+            `;
+
+            outputList.appendChild(results);
+            break;
+
         case "clear":
             addPreviousCmd();
 
             outputList.innerHTML = ``;
+            break;
+
+        case "ls":
+            addPreviousCmd();
+
+            results.innerHTML = `
+                <div class="ls"><pre>total 10824
+-rw-r--r--  1 guest  staff  3571051 May  1 20:09 artemis.jpg
+-rw-r--r--  1 guest  staff   572793 May  1 20:09 athena.jpg
+-rw-r--r--  1 guest  staff      430 May  1 09:14 favicon.ico
+-rw-r--r--  1 guest  staff     4821 May  1 09:14 index.html
+drwxr-xr-x  4 guest  staff      128 May  1 09:14 static
+-rw-r--r--  1 guest  staff  1506053 May  1 20:10 zeus.jpg</pre></div>
+            `;
+
+            outputList.appendChild(results);
+            break;
+
+        case "ls -la":
+        case "ls -al":
+            addPreviousCmd();
+
+            results.innerHTML = `
+                <div class="ls"><pre>total 10832
+drwxr-xr-x   8 guest  staff      256 May  1 20:10 .
+drwxr-xr-x  42 guest  staff     1344 May  1 20:10 ..
+-rw-r--r--   1 guest  staff       64 May  1 09:14 .definitely_dont_read_this
+-rw-r--r--   1 guest  staff  3571051 May  1 20:09 artemis.jpg
+-rw-r--r--   1 guest  staff   572793 May  1 20:09 athena.jpg
+-rw-r--r--   1 guest  staff      430 May  1 09:14 favicon.ico
+-rw-r--r--   1 guest  staff     4821 May  1 09:14 index.html
+drwxr-xr-x   4 guest  staff      128 May  1 09:14 static
+-rw-r--r--   1 guest  staff  1506053 May  1 20:10 zeus.jpg</pre></div>
+            `;
+
+            outputList.appendChild(results);
+            break;
+
+        case "history":
+            addPreviousCmd();
+
+            results.innerHTML = `<div class="history">${historyList.map((cmd, i) => `  ${i + 1}  ${cmd}`).join('<br>')}</div>`;
+
+            outputList.appendChild(results);
             break;
         
         default:
@@ -203,6 +316,16 @@ function logSubmit(event) {
 formElement.addEventListener('submit', logSubmit);
 
 formElement.addEventListener('keydown', (e) => {
+    if (e.code === "Tab") {
+        e.preventDefault();
+        const parts = inputField.value.split(' ');
+        const partial = parts[parts.length - 1];
+        if (partial.length > 0 && '.definitely_dont_read_this'.startsWith(partial)) {
+            parts[parts.length - 1] = '.definitely_dont_read_this';
+            inputField.value = parts.join(' ');
+        }
+    }
+
     // If the historyList array has at least 1 item:
     if (historyList.length) {
 
