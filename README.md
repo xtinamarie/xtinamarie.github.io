@@ -15,36 +15,6 @@ My website is live at: `https://kristinamarie.me`
 | Infrastructure | Terraform |
 | CI/CD | GitHub Actions |
 
-## Project Structure
-
-```
-.
-├── index.html                  # Main portfolio page
-├── favicon.ico                 # Site favicon
-├── secretblog/
-│   └── index.html              # Secret blog page (in progress)
-├── static/
-│   ├── css/index.css           # Styles
-│   ├── img/                    # Static assets
-│   │   ├── and-i-oop.gif
-│   │   ├── maddy-side-eye.gif
-│   │   ├── pepe-giggle.gif
-│   │   └── stardew-bg.jpg
-│   └── js/
-│       ├── index.js            # Terminal emulator logic
-│       └── matrix.js           # Canvas binary rain background
-├── terraform/
-│   ├── providers.tf            # AWS provider config (dual-region for WAF + ACM)
-│   ├── variables.tf            # Input variables (project name, region, bucket, domain)
-│   └── main.tf                 # S3, CloudFront, WAF, ACM, KMS, replication, CloudFront Function
-└── .github/
-    └── workflows/
-        ├── deploy.yml          # Deploys to S3 on push to master
-        └── security.yml        # Gitleaks + tfsec on every push and PR
-```
-
-> `terraform/outputs.tf` is intentionally excluded from this repository — it prints resource IDs that are stored as GitHub Secrets and would otherwise be visible in public CI/CD logs.
-
 <br><br><br><br>
 # Self-Hosting / Replication Guide
 
@@ -155,7 +125,7 @@ Once secrets are set, every push to `master` automatically syncs files to S3 and
 ## CI/CD Pipelines
 
 **`deploy.yml`** — triggers on push to `master`
-- Syncs all site files (`index.html`, `static/`, `secretblog/`) to S3
+- Syncs all site files to S3
 - Invalidates CloudFront cache so changes are live immediately
 
 **`security.yml`** — triggers on push to `master` and on all pull requests
@@ -175,7 +145,7 @@ My custom Checkov policies are in development at [xtinamarie/my-checkov-policies
 - **S3 Access Logs** — a dedicated logging bucket captures S3 and CloudFront access logs with a 90-day expiration lifecycle.
 - **KMS** — three customer-managed keys: one for the primary S3 bucket (us-east-1), one for the failover S3 bucket (us-west-2), and one for WAF CloudWatch Logs. All keys have automatic annual rotation enabled. CloudFront is granted `kms:Decrypt` on both S3 keys so it can serve encrypted objects via OAC.
 - **CloudFront** — HTTPS enforced (HTTP redirects to HTTPS), serves `index.html` as the default root object, aliases set to `kristinamarie.me` and `www.kristinamarie.me`. Uses an origin group for automatic failover to the us-west-2 bucket on 5xx errors.
-- **CloudFront Function** — rewrites subdirectory requests (e.g. `/secretblog/`) to their `index.html` at the edge, since S3 + OAC does not resolve directory paths automatically.
+- **CloudFront Function** — rewrites subdirectory requests to their `index.html` at the edge, since S3 + OAC does not resolve directory paths automatically.
 - **ACM** — SSL certificate issued for `kristinamarie.me` and `www.kristinamarie.me`, validated via DNS. Free when used with CloudFront.
 - **WAF** — four AWS managed rule groups attached to the CloudFront distribution: Common Rule Set (OWASP Top 10), Known Bad Inputs, Amazon IP Reputation List, and Anonymous IP List (blocks Tor exit nodes and anonymous proxies). WAF logs are sent to a KMS-encrypted CloudWatch Logs log group with a 365-day retention policy.
 - **Security Headers** — applied at the CloudFront layer via a response headers policy: HSTS, CSP, X-Frame-Options (DENY), X-Content-Type-Options, and Referrer-Policy.
