@@ -140,15 +140,25 @@ My custom Checkov policies are in development at [xtinamarie/my-checkov-policies
 
 ## Infrastructure Overview
 
-- **S3** — private primary bucket (us-east-1) with versioning, KMS customer-managed encryption, lifecycle policies (noncurrent versions expire after 30 days), EventBridge notifications, and all public access blocked. Only accessible via CloudFront using Origin Access Control (OAC).
-- **S3 Replication** — cross-region replication to a failover bucket in us-west-2, encrypted with its own KMS customer-managed key. Replication includes delete markers.
-- **S3 Access Logs** — a dedicated logging bucket captures S3 and CloudFront access logs with a 90-day expiration lifecycle.
-- **KMS** — three customer-managed keys: one for the primary S3 bucket (us-east-1), one for the failover S3 bucket (us-west-2), and one for WAF CloudWatch Logs. All keys have automatic annual rotation enabled. CloudFront is granted `kms:Decrypt` on both S3 keys so it can serve encrypted objects via OAC.
-- **CloudFront** — HTTPS enforced (HTTP redirects to HTTPS), serves `index.html` as the default root object, aliases set to `kristinamarie.me` and `www.kristinamarie.me`. Uses an origin group for automatic failover to the us-west-2 bucket on 5xx errors.
-- **CloudFront Function** — rewrites subdirectory requests to their `index.html` at the edge, since S3 + OAC does not resolve directory paths automatically.
-- **ACM** — SSL certificate issued for `kristinamarie.me` and `www.kristinamarie.me`, validated via DNS. Free when used with CloudFront.
-- **WAF** — four AWS managed rule groups attached to the CloudFront distribution: Common Rule Set (OWASP Top 10), Known Bad Inputs, Amazon IP Reputation List, and Anonymous IP List (blocks Tor exit nodes and anonymous proxies). WAF logs are sent to a KMS-encrypted CloudWatch Logs log group with a 365-day retention policy.
-- **Security Headers** — applied at the CloudFront layer via a response headers policy: HSTS, CSP, X-Frame-Options (DENY), X-Content-Type-Options, and Referrer-Policy.
+Here's a breakdown of what's actually being provisioned and why I made the choices I did.
+
+- **S3 (primary bucket, us-east-1)** — this is where the actual site files live. I've blocked all public access to it, so it can *only* be reached through CloudFront — not directly by a browser. The bucket also has versioning turned on, which is a requirement for cross-region replication (more on that below) and a nice safety net in general. Files at rest are encrypted with a customer-managed KMS key.
+
+- **S3 replication (failover bucket, us-west-2)** — I set up a second bucket in a completely different region that automatically mirrors everything in the primary bucket. If AWS's us-east-1 region has an outage, CloudFront will quietly start serving from us-west-2 instead. The failover bucket has its own separate KMS key because encryption keys are regional — you can't share one across regions.
+
+- **S3 access logs bucket** — a third bucket just for logs. Both the primary S3 bucket and CloudFront write their access logs here. Logs auto-delete after 90 days so they don't accumulate indefinitely.
+
+- **KMS keys** — I'm using three customer-managed keys total: one for the primary S3 bucket, one for the failover bucket, and one for WAF logs. All three have automatic annual rotation enabled. You might notice the key policies use `Resource = "*"` — that looks overly broad, but it's actually an AWS constraint: a KMS key policy literally cannot reference its own ARN, so `*` is required and it only applies to that specific key.
+
+- **CloudFront** — this is the public-facing layer that actually serves my site to my visitors. It enforces HTTPS (plain HTTP gets redirected), handles both `kristinamarie.me` and `www.kristinamarie.me`, and uses an *origin group* so that if the primary S3 bucket returns a 5xx error, CloudFront automatically tries the failover bucket without visitors noticing anything.
+
+- **CloudFront Function (URL rewrite)** — a small piece of edge code that rewrites directory-style URLs to their `index.html` file. This is necessary because S3 doesn't behave like a traditional web server — if someone visits `/about`, S3 doesn't know to look for `/about/index.html` on its own. This function handles that translation before the request ever reaches S3.
+
+- **ACM (SSL certificate)** — the free TLS certificate from AWS that makes `https://` work. It covers both the root domain and `www`. The certificate *must* be provisioned in us-east-1 regardless of where your other resources are — that's just an AWS requirement for anything attached to CloudFront.
+
+- **WAF** — a Web Application Firewall sits in front of CloudFront and filters incoming requests using four AWS-managed rule groups: common exploits (think OWASP Top 10), known bad inputs, IP reputation lists, and anonymous IP blocking (Tor exit nodes, VPN proxies, etc.). The WAF also *must* live in us-east-1 for the same reason as ACM. All WAF logs go to a KMS-encrypted CloudWatch log group.
+
+- **Security response headers** — injected by CloudFront on every response via a headers policy. These include HSTS (forces HTTPS even if someone types `http://`), CSP (controls what external resources the page can load), `X-Frame-Options: DENY` (prevents clickjacking), and a few others. Doing this at the CloudFront layer means it applies to every file served, without touching the HTML itself.
 
 ## Contributing
 
@@ -159,4 +169,4 @@ feature/update-about-section
 feature/add-writeup
 ```
 
-Open a pull request [here](https://github.com/xtinamarie/xtinamarie.github.io/pulls) and assign `xtinamarie` as reviewer.
+Open a pull request [here](https://github.com/xtinamarie/xtinamarie.github.io/pulls) and assign `xtinamarie` (me) as reviewer.
