@@ -172,7 +172,7 @@ function createListItem() {
 
             results.innerHTML = `
                 <div class="resume">
-                Resume update coming soon! &#128196;&#128526;
+                <a href="/static/resume.pdf" target="_blank">Click here to view my resume!</a>
                 </div>
             `
 
