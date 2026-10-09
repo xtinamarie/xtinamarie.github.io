@@ -1,6 +1,6 @@
-# My Portfolio
+# My Personal Site
 
-This repository contains the source code of my terminal-style personal portfolio site hosted on AWS (S3 + CloudFront) with WAF protection, a custom domain, and automated deployments via GitHub Actions. The IaC is managed with Terraform.
+This repository contains the source code of my terminal-style personal site, made just for fun, hosted on AWS (S3 + CloudFront) with WAF protection, a custom domain, and automated deployments via GitHub Actions. The IaC is managed with Terraform.
 
 My website is live at: `https://kristinamarie.me`
 

@@ -77,9 +77,7 @@ function createListItem() {
                     <span style="font-size:0.85em">I chose to create a terminal style portfolio because, as a developer and security engineer, the terminal is
                     something that I and many other developers use in our day-to-day job functions. I created this style portfolio with
                     the intention of allowing my non-tech savvy audience to get a simple feel of what it is like to use one of our daily
-                    tools. I provided simple, easy-to-use commands so that everyone can understand how to interact with my website.
-                    <br>
-                    For any feedback, feel free to reach out via <a href="https://www.linkedin.com/in/kristina-marie/" rel="noopener noreferrer" target="_blank">LinkedIn</a>.</span>
+                    tools. I provided simple, easy-to-use commands so that everyone can understand how to interact with my website.</span>
                     <br><br>
                     <strong><---Did you know that your website is vulnerable to XSS?---></strong><br>
                     <span style="font-size:0.85em">Yes, I'm a security engineer...I'm not oblivious. &#128514; I ran the actual risk assessment: static site, no backend, no auth, no stored user data, WAF + CSP sitting in front of it. The blast radius of XSS on a public read-only page with no sensitive data rounds to zero. I made a conscious call. Please stop DMing me about it; this answer is why that section exists.</span>
@@ -104,7 +102,7 @@ function createListItem() {
                 <div class="about">
                     <ul class="list">
                     Hi, I'm Kristina! You can also call me Tina (that's what my friends and coworkers call me).<br><br>
-                    I'm a Cloud & DevOps Security Engineer by day, French student and amateur bookworm by night.<br><br>
+                    I'm a Security Engineer by day, French student and amateur bookworm by night.<br><br>
                     I was inspired to get into Cyber Security because of a TV show and I've never looked back. I'm the kind of engineer who asks too many questions before writing a single line of code, because I'd rather understand the full picture than patch the wrong problem.<br><br>
                     I care deeply about the work I do and the people I do it with. If something here resonates with you, I'd love to connect.<br>
                     </ul>
@@ -124,7 +122,6 @@ function createListItem() {
                     <br>
                     Here are some links to my social media accounts. You're welcome to follow me and get to know me! &#128519;<br><br>
                         <li> </li>
-                        <li><a href="https://www.linkedin.com/in/kristina-marie/" rel="noopener noreferrer" target="_blank">linkedin</a></li>
                         <li><a href="https://github.com/xtinamarie" rel="noopener noreferrer" target="_blank">github</a></li>
                         <li><a href="https://twitter.com/tinyxtina_" rel="noopener noreferrer" target="_blank">twitter</a></li>
                         <li><a href="https://www.tiktok.com/@xtina3.0" rel="noopener noreferrer" target="_blank">tiktok</a></li><br>
@@ -144,7 +141,6 @@ function createListItem() {
                 <br>
                     <img src="static/img/and-i-oop.gif" alt="and i oop" class="contact-gif"><br>
                     Nice try...my personal info stays personal. &#128514;<br><br>
-                    For business inquiries, please contact me via <a href="https://www.linkedin.com/in/kristina-marie/" rel="noopener noreferrer" target="_blank">LinkedIn</a> and leave a message.<br><br>
                 </div>
             `
 
@@ -160,19 +156,6 @@ function createListItem() {
                     <ul class="list">
                         No writeups here, yet. Please check back later! &#128522;
                     </ul>
-                </div>
-            `
-
-            // Add results to output box
-            outputList.appendChild(results);
-            break;
-        
-        case "resume":
-            addPreviousCmd();
-
-            results.innerHTML = `
-                <div class="resume">
-                <a href="/static/resume.pdf" target="_blank">Click here to view my resume!</a>
                 </div>
             `
 
@@ -277,7 +260,7 @@ drwxr-xr-x   4 guest  staff      128 May  1 09:14 static
             <br><br>
             Please type one of the words from the following list to see more.
             <br><br>
-            ['about', 'socials', 'contact', 'writeup', 'resume', 'pics', 'hack', 'faq', 'clear']
+            ['about', 'socials', 'contact', 'writeup', 'pics', 'hack', 'faq', 'clear']
             `
 
             results.innerHTML = templateString;
