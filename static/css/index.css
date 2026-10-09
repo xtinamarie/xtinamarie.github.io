@@ -166,12 +166,12 @@ li {
 }
 .terminal p::before {
     color: #E879F9;
-    content: "guest@tina ~/portfolio $ ";
+    content: "guest@tina ~/mypage $ ";
 }
 
 .output-line::before {
     color: #E879F9;
-    content: "guest@tina ~/portfolio $ ";
+    content: "guest@tina ~/mypage $ ";
 }
 
 a:link {
@@ -215,7 +215,7 @@ label {
 
 .pre::before {
     color: #E879F9;
-    content: "guest@tina ~/portfolio $";
+    content: "guest@tina ~/mypage $";
 }
 
 .input-field {
